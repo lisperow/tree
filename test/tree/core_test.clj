@@ -2,8 +2,22 @@
   (:require [clojure.test :refer :all]
             [tree.core :refer :all]))
 
-(def n 5)
+(def t (-> (tree "/")
+           (tree (add-child "var"))
+           (add-child "lib")
+           (add-child "run")
+           (tree (add-child "etc"))
+           (tree (add-child "home"))))
 
-(deftest a-test
-  (testing "sum function"
-    (is (= n (sum 3 5)))))
+(def empty-tree (tree "/"))
+
+(deftest tree-test
+  (testing "has-children"
+    (is (= (has-children t) true))
+    (is (= (has-children empty-tree) false)))
+  (testing "has-child"
+    (is (= (has-child t) true)))
+  (testing "get-parent")
+  (testing "get-child")
+  (testing "get-deep-child"))
+
